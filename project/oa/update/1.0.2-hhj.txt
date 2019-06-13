@@ -1,0 +1,34 @@
+1、创建表:
+CREATE TABLE `oa_config_company` (
+  `cc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cc_add_time` int(11) NOT NULL,
+  `cc_update_time` int(11) NOT NULL,
+  `cc_approval_status` tinyint(4) NOT NULL,
+  `cc_add_user_id` smallint(6) NOT NULL,
+  `zt_id` smallint(6) NOT NULL,
+  `cc_name` varchar(100) DEFAULT NULL,
+  `cc_note` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`cc_id`),
+  UNIQUE KEY `uidx_name` (`cc_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='公司列表配置';
+
+
+2、
+公司列表配置下面添加个子权限:新增-PRE_SYSTEM_GCLBPZ_ADD
+公司列表配置下面添加个子权限:新增-PRE_SYSTEM_GCLBPZ_ADD
+
+3、执行语句:
+ALTER TABLE `oa`.`oa_user_permission`
+CHANGE COLUMN `up_thired_system_id` `up_third_system_id` SMALLINT(6) NULL DEFAULT NULL COMMENT '第三方系统ID' ;
+
+ALTER TABLE `oa`.`oa_user`
+ADD UNIQUE INDEX `uidx_session_id` (`u_session_id` ASC, `u_username` ASC);
+
+ALTER TABLE `oa`.`oa_user`
+ADD COLUMN `u_ticket` VARCHAR(100) NULL COMMENT '登陆ticket' AFTER `u_es_id`,
+ADD UNIQUE INDEX `uidx_tikect` (`u_ticket` ASC),
+DROP INDEX `uidx_session_id` ;
+
+
+4、添加API
+添加GetUserInfo

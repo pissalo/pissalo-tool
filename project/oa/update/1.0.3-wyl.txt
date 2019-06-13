@@ -1,0 +1,93 @@
+权限设置：
+	审批配置列表 	PRE_APPROVAL_CONFIG 
+		开发者配置 	PRE_APPROVAL_CONFIG_KF
+		添加配置 	PRE_APPROVAL_CONFIG_ADD
+	审批列表 	PRE_APPROVAL_LIST 	
+
+SQL：
+	
+CREATE TABLE `oa_approval`  (
+  `approval_id` int(11) NOT NULL AUTO_INCREMENT,
+  `approval_add_time` int(11) NOT NULL COMMENT '添加时间',
+  `approval_update_time` int(11) NOT NULL COMMENT '更新时间',
+  `approval_end_time` int(11) NOT NULL DEFAULT 0 COMMENT '完结时间',
+  `approval_approval_status` tinyint(4) NOT NULL COMMENT '是否有效',
+  `approval_add_user_id` smallint(6) NOT NULL COMMENT '申请人',
+  `zt_id` smallint(6) NOT NULL COMMENT '账套ID',
+  `approval_status` tinyint(1) NOT NULL COMMENT '审核状态',
+  `approval_type` smallint(5) NOT NULL COMMENT '审批类型',
+  `approval_other_id` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '具体ID',
+  `approval_check_level` tinyint(1) NOT NULL COMMENT '当前审核级别',
+  `approval_end_check_level` tinyint(1) NOT NULL DEFAULT 0 COMMENT '结束审核级别',
+  `approval_copy_to_user` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '抄送人',
+  PRIMARY KEY (`approval_id`) USING BTREE,
+  INDEX `idx_user_id`(`approval_add_user_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 371 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+
+CREATE TABLE `oa_approval_config`  (
+  `ac_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ac_spl_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '审批名称',
+  `ac_level` tinyint(1) NOT NULL COMMENT '审批层数',
+  `ac_use_range` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '可用部门',
+  `ac_copy_to_user` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '抄送人',
+  `ac_note` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '说明',
+  `ac_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '申请路径',
+  `ac_class` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '类文件',
+  `ac_add_time` int(11) NOT NULL COMMENT '添加时间',
+  `ac_update_time` int(11) NOT NULL COMMENT '更新时间',
+  `ac_approval_status` tinyint(1) NOT NULL COMMENT '是否有效',
+  `ac_add_user_id` smallint(6) NOT NULL COMMENT '添加人ID',
+  `zt_id` smallint(6) NOT NULL COMMENT '账套ID',
+  PRIMARY KEY (`ac_id`) USING BTREE,
+  UNIQUE INDEX `udx_approval_name`(`ac_spl_name`, `zt_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '审批流配置表';
+
+CREATE TABLE `oa_approval_config_detail`  (
+  `acd_id` int(11) NOT NULL AUTO_INCREMENT,
+  `acd_ac_id` int(11) NOT NULL COMMENT '主表ID',
+  `acd_check_level` tinyint(1) NOT NULL COMMENT '审核级别',
+  `acd_check_type` tinyint(1) NOT NULL COMMENT '审核类别。1、上级审核；2、指定成员；3、自己审核',
+  `acd_check_method` tinyint(1) NULL DEFAULT NULL COMMENT '审核方式',
+  `acd_check_sup_level` tinyint(1) NULL DEFAULT NULL COMMENT '审批上级级数',
+  `acd_check_user_id` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '审核人',
+  `acd_add_time` int(11) NOT NULL COMMENT '添加时间',
+  `acd_update_time` int(11) NOT NULL COMMENT '更新时间',
+  `acd_approval_status` tinyint(4) NOT NULL COMMENT '是否有效',
+  `acd_add_user_id` smallint(6) NOT NULL COMMENT '添加人ID',
+  `zt_id` smallint(6) NOT NULL COMMENT '账套ID',
+  PRIMARY KEY (`acd_id`) USING BTREE,
+  UNIQUE INDEX `udx_acid_level`(`acd_ac_id`, `acd_check_level`, `zt_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 854 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+
+CREATE TABLE `oa_approval_detail`  (
+  `ad_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ad_approval_id` int(11) NOT NULL COMMENT '主表ID',
+  `ad_check_level` tinyint(1) NOT NULL COMMENT '审核级别',
+  `ad_config_level` tinyint(1) NOT NULL COMMENT '配置级别',
+  `ad_check_user_id` int(11) NOT NULL COMMENT '审核人ID',
+  `ad_check_time` int(11) NOT NULL COMMENT '审核时间',
+  `ad_add_time` int(11) NOT NULL COMMENT '添加时间',
+  `ad_update_time` int(11) NOT NULL COMMENT '更新时间',
+  `ad_approval_status` tinyint(4) NOT NULL COMMENT '状态',
+  `ad_add_user_id` smallint(6) NOT NULL COMMENT '添加人',
+  `zt_id` smallint(6) NOT NULL COMMENT '账套',
+  PRIMARY KEY (`ad_id`) USING BTREE,
+  INDEX `idx_user_id`(`ad_check_user_id`) USING BTREE,
+  INDEX `idx_approval_id`(`ad_approval_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 827 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+
+CREATE TABLE `oa_user_extends_permission` (
+  `uep_id` int(11) NOT NULL AUTO_INCREMENT,
+  `uep_user_id` int(11) NOT NULL COMMENT '用户ID',
+  `uep_read_per` tinyint(1) NOT NULL COMMENT '读权限',
+  `uep_option_per` int(11) NOT NULL COMMENT '操作权限ID',
+  `uep_valid_time` int(11) unsigned NOT NULL COMMENT '失效时间',
+  `uep_system_id` smallint(5) NOT NULL COMMENT '系统ID',
+  `uep_add_time` int(11) unsigned NOT NULL COMMENT '添加时间',
+  `uep_update_time` int(11) unsigned NOT NULL COMMENT '更新时间',
+  `uep_approval_status` tinyint(4) NOT NULL COMMENT '状态',
+  `uep_add_user_id` smallint(6) NOT NULL COMMENT '添加人',
+  `zt_id` smallint(6) NOT NULL COMMENT '账套ID',
+  PRIMARY KEY (`uep_id`),
+  KEY `idx_user_id` (`uep_user_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=756 DEFAULT CHARSET=utf8 COMMENT='用户额外权限列表'

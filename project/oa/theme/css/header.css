@@ -1,0 +1,198 @@
+/*头部导航公共样式*/
+.fr {
+    float: right
+}
+
+.fl {
+    float: left
+}
+
+.ao-header {
+    width: 100%;
+    position: relative;
+    background: #0365C4;
+    color: #FFFFFF;
+    line-height: 60px;
+}
+
+.ao-header:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.ao-header-logo {
+    font-size: 22px;
+    float: left;
+    margin-right: 15px;
+}
+
+.ao-header-nav {
+    font-size: 0;
+}
+
+.ao-header-nav .layui-nav-item a {
+    color: #fff;
+    font-size: 14px;
+    position: relative;
+    top: 15px;
+    display: inline;
+}
+
+.ao-header-nav .layui-nav-item .layui-nav-child a {
+    display: block;
+    top: 0;
+    border-bottom: 1px solid #0282e0;
+    color: #fff !important;
+
+}
+
+.layui-nav-child a {
+    color: #6b6b6b !important;
+}
+
+.welcome-dl dd:last-child a {
+    border-top: 1px solid #ddd;
+}
+
+.layui-nav-child span {
+    color: #333;
+    padding-left: 20px;
+    font-weight: bold;
+}
+
+.ao-header-nav .layui-nav-child a:hover {
+    background: #193a6c;
+    color: #fff;
+}
+
+.layui-nav-child a:hover {
+    background: #999;
+}
+
+.layui-nav-item .layui-nav-child dd:last-child a {
+    display: block;
+    top: 0;
+    border-bottom: none;
+}
+
+.ao-header-nav > li {
+    border-right: 1px solid #0282e0;
+    cursor: pointer;
+}
+
+.layui-nav-item:hover {
+    background: #193a6c;
+}
+
+.ao-header-nav > li:first-child {
+    border-left: 1px solid #0282e0;
+}
+
+.layui-nav-bar {
+    background-color: #4696e4;
+}
+
+.nav-parent {
+    padding-right: 40px !important;
+}
+
+.ao-header-nav .layui-nav-more {
+    right: 20px;
+}
+
+.nav-icon {
+    font-size: 22px;
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    margin-left: -11px;
+}
+
+.layui-nav-child {
+    padding: 0;
+    background: #0365C4;
+    top: 60px;
+}
+
+.welcome-dl {
+    background: #fff;
+    border-radius: 5px;
+}
+
+.header-center:before {
+    content: "";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: url("../img/u207.png") no-repeat;
+    background-size: 100% 100%;
+    vertical-align: baseline;
+}
+
+.header-out:before {
+    content: "";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: url("../img/u205.png") no-repeat;
+    background-size: 100% 100%;
+    vertical-align: baseline;
+}
+
+.layui-nav .layui-nav-child dd.layui-this a {
+    background: #193a6c;
+}
+
+.menu-list {
+    display: none;
+    width: 100%;
+}
+
+.menu-list li {
+    background: #0365C4;
+    color: #fff;
+    line-height: 36px;
+    border-bottom: 1px solid #0282e0;
+    position: relative;
+}
+
+.menu-list li:hover {
+    background: #193a6c;
+}
+
+.menu-list li a {
+    display: inline-block !important;
+    border-bottom: none !important;
+}
+
+.nav-up {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-width: 6px 7px 0;
+    border-style: solid;
+    border-color: #fff transparent transparent;
+    position: absolute;
+    top: 14px;
+    right: 20px;
+}
+
+.nav-up.active {
+    border-width: 0 6px 7px;
+    border-style: solid;
+    border-color: transparent transparent #fff;
+}
+
+/*导航样式结束*/
+
+
+.nav-list ul{display: none}
+.ao-header li{position: relative}
+ul.nav-list span.sub{ position: absolute; display: block; right:10px; top: -2px; width: 10px; height: 40px; background: url("/theme/img/arrows.png") no-repeat center center;}
+.nav-list li ul li{text-align: center;background: #0365C4}
+.nav-list li a{height: 37px;line-height: 37px;display: block;position: relative}
+li.on>ul{display: block}
+li > ul{display: none}
+ul.nav-list > li ul{ position:  absolute; top: 0;}
+.nav-list a{padding-right: 40px !important;}

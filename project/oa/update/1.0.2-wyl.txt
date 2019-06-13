@@ -1,0 +1,17 @@
+权限
+员工权限->员工管理->修改密码；define:PRE_STAFF_CHANGE_PASSWORD
+员工权限->员工管理->导入用户信息；define:PRE_STAFF_YGGL_IMPORT
+
+
+SQL:
+添加字段
+alter table oa_user_addition add ua_user_character tinyint(1) comment '员工性质';
+alter table oa_user add u_es_id smallint(6) not null comment '组织ID';
+
+修改字段
+alter table oa_role modify column r_use_range varchar(5000) not null comment '应用范围';
+
+删除字段
+alter table oa_user drop column u_department_id;u_group_id
+alter table oa_user drop column u_group_id;
+alter table oa_user drop column ua_woke_place;

@@ -1,0 +1,26 @@
+PHPStorm 加上phpcs检查操作方式:
+
+
+
+先安装phpcs:
+
+1、windows先安装composer工具
+
+2、然后在cmd执行:composer global require "squizlabs/php_codesniffer=*"
+
+3、把安装好的composer目录下的vendor下的bin里的phpcs.bat路径复制出来
+
+打开phpstorm:
+
+Settins>Languages & Frameworks->PHP->Code Sniffer 按[Configuration] 把上面的phpcs.bat复制进去，点Validate验证下，这里可能要把php.exe所在路径复制到Path变量中去
+
+Settings>Editor>Inspections>PHP>PHP Code Sniffer validtion 后面勾上，然后Coding standart选PSR2
+
+
+本地检测:
+phpcs -n -p --standard=PSR2 --ignore=*/third_class/* --extensions=php --encoding=utf-8 -w -s F:\oa\api\list.php //指定文件
+phpcs -n -p --standard=PSR2 --ignore=*/third_class/* --extensions=php --encoding=utf-8 -w -s . //当前目录(会自动到子目录)
+
+本地修正
+pphpcbf -n -p --standard=PSR2 --ignore=*/third_class/* --extensions=php --encoding=utf-8 -w -s F:\oa\api\list.php
+pphpcbf -n -p --standard=PSR2 --ignore=*/third_class/* --extensions=php --encoding=utf-8 -w -s . //当前目录(会自动到子目录)
